@@ -5,6 +5,11 @@ import (
 	"net/http"
 )
 
+// Controller is an interface abstracts our requests handling
+type Controller interface {
+	Handler(w http.ResponseWriter, r *http.Request)
+}
+
 type cont struct {
 	serv Service
 }
@@ -15,20 +20,8 @@ func NewController(serv Service) *cont {
 }
 
 // Handler is function takes cares request
-func Handler(w http.ResponseWriter, r *http.Request) {
-	mysqlRepo, err := NewMySQLRepository()
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-	userServ, err := NewService(mysqlRepo)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-	cont := NewController(userServ)
-
-	u, err := cont.serv.Find(0)
+func (c *cont) Handler(w http.ResponseWriter, r *http.Request) {
+	u, err := c.serv.Find(0)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return

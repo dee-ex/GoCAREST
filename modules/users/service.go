@@ -4,7 +4,7 @@ import (
 	"github.com/dee-ex/gocarest/entities"
 )
 
-// Service an interface abstracts our logic implementation
+// Service is an interface abstracts our logic implementation
 type Service interface {
 	Reader
 	Writer
@@ -15,8 +15,8 @@ type serv struct {
 }
 
 // NewService create a service corresponding with our Repository
-func NewService(repo Repository) (*serv, error) {
-	return &serv{repo: repo}, nil
+func NewService(repo Repository) *serv {
+	return &serv{repo: repo}
 }
 
 func (s *serv) Find(id int) (*entities.User, error) {
