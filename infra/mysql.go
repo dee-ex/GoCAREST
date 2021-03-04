@@ -2,6 +2,7 @@ package infra
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"gorm.io/driver/mysql"
@@ -11,12 +12,12 @@ import (
 // NewMySQLSession creates a session to our database
 func NewMySQLSession() (*gorm.DB, error) {
 	var (
-		usrnm, paswd, proto, host, dbname string = "root", "123qwe123qwe", "tcp", "127.0.0.1", "gocarest"
-		port, mxopen, mxlife              int    = 3306, 10, 15
-		partm                             bool   = true
+		usrnm, paswd, proto, host, port, dbname string = os.Getenv("DB_USERNAME"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_PROTOCOL"), os.Getenv("DB_HOST"), os.Getenv("DB_PORT"), os.Getenv("DB_NAME")
+		mxopen, mxlife                          int    = 10, 15
+		partm                                   bool   = true
 	)
 
-	dsn := fmt.Sprintf("%s:%s@%s(%s:%d)/%s?parseTime=%t", usrnm, paswd, proto, host, port, dbname, partm)
+	dsn := fmt.Sprintf("%s:%s@%s(%s:%s)/%s?parseTime=%t", usrnm, paswd, proto, host, port, dbname, partm)
 
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
