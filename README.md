@@ -13,6 +13,7 @@
 
 [![goversion](https://img.shields.io/badge/Go-v1.14.4-blue)](https://golang.org/)
 [![mysqlversion](https://img.shields.io/badge/MySQL-v8.0.22-blue)](https://mysql.com/)
+[![redisversion](https://img.shields.io/badge/redis-v8-red)](https://redis.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## About GoCAREST
